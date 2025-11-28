@@ -22,3 +22,13 @@
 - use of reges in routes /a/, /.*fly$/
 - reading the query params in the routes
 - reading the dynamic routes
+
+- multiple route handlers - play with the code
+- next()
+- next function and errors along with res.send()
+- app.use("/route", rH, [rH2, rH3, rH4], rH5, rH6);
+- what is middleware? Why do we need it?
+- how express JS basically handles requests behind the scene
+- difference app.use and app.all
+- write a dummy auth middleware for admin
+- write a dummy auth middleware for all user routes, except /user/login
