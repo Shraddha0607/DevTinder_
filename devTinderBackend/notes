@@ -10,3 +10,30 @@ npm run dev
 npm start
 
 md - markdown file
+understand "advanced routing techniques"
+abc 
+ab?c -- abc, ac both working
+ab+c -- abbbbbc, abc, etc are working
+ab*cd -- abcd, abbbbbcd, abghjghjcd all are working
+regex also works in routing 
+
+____________________________________________
+
+req.query
+app.get("/user/:Id/:name", (req, res) => {
+    console.log(req.query);
+    console.log(req.params);
+    res.send({
+        firstName: "Shraddha",
+        lastName: "Gaur"
+    });
+});
+
+req.params
+app.get("/user/:userId/:name", (req, res) => {
+    console.log(req.params);
+    res.send({
+        firstName: "Shraddha",
+        lastName: "Gaur"
+    });
+});

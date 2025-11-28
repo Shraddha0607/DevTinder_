@@ -2,7 +2,9 @@ const express = require("express");
 
 const app = express();
 
-app.get("/user", (req, res) => {
+app.get("/user/:Id/:name", (req, res) => {
+    console.log(req.query);
+    console.log(req.params);
     res.send({
         firstName: "Shraddha",
         lastName: "Gaur"
@@ -22,9 +24,9 @@ app.use("/test", (req, res) => {
     res.send("Hello, from tester")
 });
 
-app.use("/", (req, res) => {
-    res.send("Namaste ji");
-});
+// app.use("/", (req, res) => {
+//     res.send("Namaste ji");
+// });
 
 app.listen(3000, () => {
     console.log("Server is successfully listening on port 2000");
