@@ -1,0 +1,12 @@
+1) npm init
+to create "package.json"
+
+2) create "src" folder and "app.js" file (which is starting point)
+
+3) npm i express
+4) create server 
+5) install nodemon
+npm run dev 
+npm start
+
+md - markdown file
