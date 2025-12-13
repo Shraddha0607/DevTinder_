@@ -19,7 +19,7 @@ regex also works in routing
 
 ____________________________________________
 
-req.query
+req.query    (Query parameter)
 app.get("/user/:Id/:name", (req, res) => {
     console.log(req.query);
     console.log(req.params);
@@ -29,11 +29,116 @@ app.get("/user/:Id/:name", (req, res) => {
     });
 });
 
-req.params
+req.params       (Route parameter)
 app.get("/user/:userId/:name", (req, res) => {
     console.log(req.params);
     res.send({
         firstName: "Shraddha",
         lastName: "Gaur"
     });
+});
+
+6) route handler => express allowed many route handler, but you do need to take 
+        care of "only single res.send()"
+
+7) Arrays help when you want to group related middleware.
+
+const authMiddlewares = [
+  verifyToken,
+  checkRole,
+  checkSubscription
+];
+
+app.use('/dashboard', authMiddlewares, dashboardHandler);
+
+app.use('/dashboard', verifyToken, checkRole, checkSubscription, dashboardHandler);
+
+8) if in "Route handler", no res.send => then infinite loop
+if in "Route handler", next()  => then give error
+
+9) app.use() vs app.all()
+app.use() is primarily used for middleware and matches route prefixes, 
+while app.all() is used for handling all HTTP methods on an exact route path.
+
+
+{
+10) How to get the "username" and "password"
+
+🔑 From where do username and password come?
+👉 YOU create them in MongoDB Atlas
+They are NOT your MongoDB login email/password.
+}
+
+✅ Step-by-Step: Get Username & Password (Atlas)
+🔹 Step 1: Open MongoDB Atlas
+
+Login to MongoDB Atlas
+
+Open your Project
+
+🔹 Step 2: Go to Database Access
+
+📍 Left sidebar → Security → Database Access
+
+🔹 Step 3: Create Database User
+
+Click ➕ Add New Database User
+
+Fill:
+
+Authentication Method: Password
+
+Username:
+Example:
+
+learnbydoing00
+
+
+Password:
+
+Click Autogenerate Secure Password
+OR
+
+Create your own strong password
+
+Database User Privileges:
+
+Select Read and write to any database
+
+Click Add User
+
+👉 This username & password is what goes in your connection string.
+
+✅ How to Use It in Your URL
+
+Given URL:
+
+mongodb+srv://learnbydoing00:<db_password>@nodelearning.sel3b9f.mongodb.net/devTinder
+
+
+Replace:
+
+learnbydoing00 → Database username
+
+<db_password> → Database user password
+
+Example:
+
+mongodb+srv://learnbydoing00:MyStrongPass@123@nodelearning.sel3b9f.mongodb.net/devTinder
+}
+
+11) db connect > then > server connect to port
+
+12) JSon vs JS object
+Json want both key-value in "string"
+
+13) Rules:
+NO quotes needed
+NO spaces around =
+One variable per line
+
+14)  to understand, why .env is not injecting properly, use "debug" key
+require('dotenv').config({ 
+    path: '.env',
+    debug: true,
 });

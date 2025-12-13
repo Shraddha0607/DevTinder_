@@ -1,39 +1,35 @@
+require('dotenv').config({ 
+    path: '.env',
+});
+
 const express = require("express");
+const connectDb = require('./config/database');
+const User = require('./models/user');
 
 const app = express();
+app.use(express.json());
 
-const {
-    adminAuth,
-    userAuth
-} = require("./middlewares/auth");
+app.post("/signup", async (req, res) => {
+    // creating a new instance of the User model
+    const user = new User(req.body);
 
-app.use("/admin", adminAuth);
-app.use ("/user", userAuth);
-
-app.get("/admin/getAllData", (req, res) => {
-    res.send("I am user");
-});
-
-app.delete("/admin/deleteAllData", (req, res, next) => {
-    res.send("deletion by admin");
-});
-
-app.delete("/admin/user", (req, res, next) => {
-    const token = "xyz";
-    if (token === "xyz") {
-        console.log("valid token");
-        res.send("User deleted successfully!");
-    } else {
-        res.status(401).send("Unauthorized request");
+    try {
+        await user.save();
+        res.send("saved successfully");
+    } catch (err) {
+        res.status(400).send("Error while saving user : " + err.message);
     }
+    res.send("Good");
+
 });
 
-app.get("/user", (req, res, next) => {
-        console.log("Handling the route user!!");
-        res.send("Response!!");
-    }
-);
-
-app.listen(3000, () => {
-    console.log("Server is successfully listening on port 2000");
-});
+connectDb()
+    .then(() => {
+        console.log("Database connection established.");
+        app.listen(process.env.PORT, () => {
+            console.log("Server is successfully listening on port 3000");
+        });
+    })
+    .catch((err) => {
+        console.error("Database cannot connected." + err.message)
+    });
