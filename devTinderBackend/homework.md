@@ -46,3 +46,8 @@
 - Error handling using try, catch
 
 - JS object vs JSON (difference)
+- Add the express.json middleware to your app
+- Make your singup API dynamic to receive data from the end user
+- User.findOne() with duplicate email ids, which object returned
+- API - Get user by email
+- API - Get all the user from the database
