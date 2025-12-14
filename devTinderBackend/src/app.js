@@ -1,10 +1,11 @@
-require('dotenv').config({ 
+require('dotenv').config({
     path: '.env',
 });
 
 const express = require("express");
 const connectDb = require('./config/database');
 const User = require('./models/user');
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.json());
@@ -21,16 +22,32 @@ app.post("/signup", async (req, res) => {
     }
 });
 
+// Get user by ID
+app.get('/userById', async (req, res) => {
+    const userId = req.body.userId;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(404).send("User not found!");
+        } else {
+            res.send(user);
+        }
+    } catch (err) {
+        res.status(400).send("Something went wrong!");
+    }
+});
+
 // Get user by email
 app.get('/user', async (req, res) => {
     const userEmail = req.body.emailId;
-    console.log("Emial is " + userEmail);
 
-    try{
-        const user = await User.findOne({ emailId: userEmail });
+    try {
+        const user = await User.findOne({
+            emailId: userEmail
+        });
         if (!user) {
-            res.status(404).send("User not found");                  
-        }else{
+            res.status(404).send("User not found");
+        } else {
             res.send(user);
 
         }
@@ -58,6 +75,70 @@ app.get('/feed', async (req, res) => {
     }
 });
 
+app.delete('/user', async (req, res) => {
+    const userId = req.body.userId;
+
+    if (!userId) {
+        return res.status(400).json({
+            message: "User id is required."
+        });
+    }
+
+    // Validate MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({
+            message: "Invalid userId format"
+        });
+    }
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(400).json({
+                message: "User not found."
+            });
+        }
+        res.status(200).json({
+            message: "User deleted successfully."
+        });
+    } catch (err) {
+        res.status(400).send("Something went wrong!");
+    }
+});
+
+app.patch('/user', async (req, res) => {
+    const {
+        userId,
+        ...userData
+    } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({
+            message: "User Id is required."
+        });
+    }
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            userData,
+            {returnDocument: "after"}
+        );
+        console.log(updatedUser);
+
+        if (!updatedUser) {
+            res.status(404).json({
+                message: "User not found!"
+            });
+        }
+
+        res.status(200).json({
+            message: "User data is updated successfully."
+        });
+    } catch (err) {
+        res.status(400).send("Something went wrong!");
+    }
+});
 
 connectDb()
     .then(() => {
