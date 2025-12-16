@@ -106,11 +106,9 @@ app.delete('/user', async (req, res) => {
     }
 });
 
-app.patch('/user', async (req, res) => {
-    const {
-        userId,
-        ...userData
-    } = req.body;
+app.patch('/user/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const userData = req.body;
 
     if (!userId) {
         return res.status(400).json({
@@ -119,12 +117,29 @@ app.patch('/user', async (req, res) => {
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            userData,
-            {returnDocument: "after"}
+        const ALLOWED_UPDATES = [
+            "userId",
+            "photoUrl",
+            "about",
+            "gender",
+            "age",
+            "skills",
+        ];
+        const isUpdateAllowed = Object.keys(userData).every(key => 
+            ALLOWED_UPDATES.includes(key)
         );
-        console.log(updatedUser);
+        if (!isUpdateAllowed) {
+            throw new Error ("Update not allowed.");
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId, {
+                $set: userData
+            }, {
+                returnDocument: "after",
+                runValidators: true
+            }
+        );
 
         if (!updatedUser) {
             res.status(404).json({
@@ -136,7 +151,9 @@ app.patch('/user', async (req, res) => {
             message: "User data is updated successfully."
         });
     } catch (err) {
-        res.status(400).send("Something went wrong!");
+        res.status(400).json({
+            message: "Update failed! " + err.message
+        });
     }
 });
 

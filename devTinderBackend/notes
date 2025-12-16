@@ -132,6 +132,16 @@ mongodb+srv://learnbydoing00:MyStrongPass@123@nodelearning.sel3b9f.mongodb.net/d
 12) JSon vs JS object
 Json want both key-value in "string"
 
+| Feature         | JS Object                 | JSON                                         |
+| --------------- | ------------------------- | -------------------------------------------- |
+| Type            | JavaScript data structure | Text / String format                         |
+| Quotes on keys  | Optional                  | Mandatory (")                                |
+| Functions       | ✅ Allowed                 | ❌ Not allowed                                |
+| Data types      | Any JS type               | String, Number, Boolean, Array, Object, null |
+| Usage           | Program logic             | Data transfer / storage                      |
+| Trailing commas | Allowed                   | ❌ Not allowed                                |
+
+
 13) Rules:
 NO quotes needed
 NO spaces around =
