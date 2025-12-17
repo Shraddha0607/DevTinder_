@@ -152,3 +152,16 @@ require('dotenv').config({
     path: '.env',
     debug: true,
 });
+
+15) to collapse : Ctrl + K  →  Ctrl + 0
+ to unfold: Ctrl + K  →  Ctrl + J
+
+16) to start in debugging mode:
+ - Create launch.json
+ - Press Ctrl + Shift + D
+ - Click Run and Debug
+ - Select Node.js
+
+ 17) if want to unstill package from globally
+ nodemon -v
+ npm uninstall -g nodemon

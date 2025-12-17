@@ -69,4 +69,12 @@
 - Data sanitization => Add API validation in each field in model
 - install validator
 - explore validator library function and use validator function for password, email, url
+- never trust req.body
 
+- READ ABOUT BUFFER
+
+- Validate data in Signup API
+- Install bcrypt package
+- Create PasswoedHash using bcrypt.hash & save the use is excrupted password
+- Create login API
+- Compare passwords and throw errrors if email or password is invalid

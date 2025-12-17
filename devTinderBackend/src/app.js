@@ -6,19 +6,58 @@ const express = require("express");
 const connectDb = require('./config/database');
 const User = require('./models/user');
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+
+const {
+    validateSignUpData
+} = require("./utils/validation");
 
 const app = express();
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
-    // creating a new instance of the User model
-    const user = new User(req.body);
-
     try {
+        // validation of data
+        validateSignUpData(req);
+
+        const {firstName, lastName, emailId, password} = req.body;
+
+        // Encrypt the password
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        // creating a new instance of the User model
+        const user = new User({
+            firstName, lastName, emailId, password: passwordHash
+        });
+
+
         await user.save();
         res.send("User added successfully");
     } catch (err) {
-        res.status(400).send("Error while saving user : " + err.message);
+        res.status(400).send("Error: " + err.message);
+    }
+});
+
+app.post("/login", async (req, res) => {
+    try {
+        const { emailId, password } = req.body;
+
+        const user = await User.findOne({emailId: emailId});
+
+        if (!user) {
+            throw new Error("Invalid credential!");
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (isPasswordValid) {
+            res.status(200).json({ message: "Login successful."});
+        }
+        else {
+            throw new Error ("Invalid credential!");
+        }
+
+    } catch (err) {
+        res.status(400).send("ERROR : " + err.message);
     }
 });
 
@@ -26,6 +65,7 @@ app.post("/signup", async (req, res) => {
 app.get('/userById', async (req, res) => {
     const userId = req.body.userId;
     try {
+        console.log(userId);
         const user = await User.findById(userId);
         if (!user) {
             res.status(404).send("User not found!");
@@ -107,7 +147,7 @@ app.delete('/user', async (req, res) => {
 });
 
 app.patch('/user/:userId', async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.params?.userId;
     const userData = req.body;
 
     if (!userId) {
@@ -125,11 +165,11 @@ app.patch('/user/:userId', async (req, res) => {
             "age",
             "skills",
         ];
-        const isUpdateAllowed = Object.keys(userData).every(key => 
+        const isUpdateAllowed = Object.keys(userData).every(key =>
             ALLOWED_UPDATES.includes(key)
         );
         if (!isUpdateAllowed) {
-            throw new Error ("Update not allowed.");
+            throw new Error("Update not allowed.");
         }
 
         const updatedUser = await User.findByIdAndUpdate(
