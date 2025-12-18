@@ -4,14 +4,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug App",
-      "program": "${workspaceFolder}/src/app.js",
-      "cwd": "${workspaceFolder}",
-      "envFile": "${workspaceFolder}/.env",
+      "name": "Debug devTinderBackend",
+      "program": "${workspaceFolder}/devTinderBackend/src/app.js",
+      "cwd": "${workspaceFolder}/devTinderBackend",
+      "envFile": "${workspaceFolder}/devTinderBackend/.env",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"],
       "restart": true,
       "runtimeExecutable": "nodemon",
+      "runtimeArgs": ["--inspect"]
     }
   ]
 }

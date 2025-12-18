@@ -1,7 +1,8 @@
-require('dotenv').config({
-    path: '.env',
-});
 
+const path = require('path');
+require('dotenv').config({
+    path: path.resolve(__dirname, '../.env')
+});
 const express = require("express");
 const connectDb = require('./config/database');
 const User = require('./models/user');
