@@ -1,4 +1,3 @@
-
 const path = require('path');
 require('dotenv').config({
     path: path.resolve(__dirname, '../.env')
@@ -8,6 +7,11 @@ const connectDb = require('./config/database');
 const User = require('./models/user');
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const {
+    userAuth
+} = require("./middlewares/auth");
 
 const {
     validateSignUpData
@@ -15,20 +19,29 @@ const {
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/signup", async (req, res) => {
     try {
         // validation of data
         validateSignUpData(req);
 
-        const {firstName, lastName, emailId, password} = req.body;
+        const {
+            firstName,
+            lastName,
+            emailId,
+            password
+        } = req.body;
 
         // Encrypt the password
         const passwordHash = await bcrypt.hash(password, 10);
 
         // creating a new instance of the User model
         const user = new User({
-            firstName, lastName, emailId, password: passwordHash
+            firstName,
+            lastName,
+            emailId,
+            password: passwordHash
         });
 
 
@@ -41,9 +54,14 @@ app.post("/signup", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        const { emailId, password } = req.body;
+        const {
+            emailId,
+            password
+        } = req.body;
 
-        const user = await User.findOne({emailId: emailId});
+        const user = await User.findOne({
+            emailId: emailId
+        });
 
         if (!user) {
             throw new Error("Invalid credential!");
@@ -51,12 +69,31 @@ app.post("/login", async (req, res) => {
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (isPasswordValid) {
-            res.status(200).json({ message: "Login successful."});
-        }
-        else {
-            throw new Error ("Invalid credential!");
+            // Create a JWT token
+            const token = await jwt.sign({
+                _id: user._id
+            }, process.env.SECRET_KEY, {
+                expiresIn: "1d"
+            });
+
+            res.cookie("token", token);
+            res.status(200).json({
+                message: "Login successful."
+            });
+        } else {
+            throw new Error("Invalid credential!");
         }
 
+    } catch (err) {
+        res.status(400).send("ERROR : " + err.message);
+    }
+});
+
+app.get("/profile", userAuth, async (req, res) => {
+    try {
+        const user = req.user;
+
+        res.status(200).send(user);
     } catch (err) {
         res.status(400).send("ERROR : " + err.message);
     }
@@ -148,7 +185,7 @@ app.delete('/user', async (req, res) => {
 });
 
 app.patch('/user/:userId', async (req, res) => {
-    const userId = req.params?.userId;
+    const userId = req.params.userId;
     const userData = req.body;
 
     if (!userId) {

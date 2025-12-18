@@ -165,3 +165,46 @@ require('dotenv').config({
  17) if want to unstill package from globally
  nodemon -v
  npm uninstall -g nodemon
+
+ 18) Cookies => 
+ it is like a registration slip, 
+ After which we are authorised one. So, again and again don't need to show and get verified by our credentials.
+
+ 19) JWT => header + payload + verify signature
+ .sign(), .verify()
+
+20) {
+        "firstName": "Admin",
+        "lastName" : "Verma",
+        "emailId" : "admin@gmail.com",
+        "password" : "Admin@123"
+    }
+
+
+21) Environment configuration should be relative to code, not editor state
+
+question: “How do you handle env files in nested Node projects?”
+answer: “I load environment variables using an absolute path derived from __dirname, so the application works regardless of how or where the project is opened.”
+
+
+
+
+
+
+
+
+GIT :
+1) to create new branch and reflect all changes in that, by switching to that branch itself
+ git checkout -b branch_name
+
+2) to delete a branch(safely)
+git branch -d branch_name
+
+
+
+
+
+ ISSUES
+ 1) const userId = req.params?.userId;
+ when saving, it becomes,
+ const userId = req.params ? .userId;
