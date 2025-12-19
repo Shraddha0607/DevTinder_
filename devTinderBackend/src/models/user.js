@@ -49,11 +49,15 @@ const userSchema = new mongoose.Schema({
    },
    gender: {
       type: String,
-      validate(value) {
-         if (!['male', 'female', 'others'].includes(value)) {
-            throw new Error("Gender value is invalid!");
-         }
-      }
+      enum: {
+         values: ["male", "female", "other"],
+         message: `{VALUE} is not a valid gender type`
+      },
+      // validate(value) {
+      //    if (!['male', 'female', 'others'].includes(value)) {
+      //       throw new Error("Gender value is invalid!");
+      //    }
+      // }
    },
    photoUrl: {
       type: String,
@@ -87,6 +91,13 @@ const userSchema = new mongoose.Schema({
 }, {
    timestamps: true,
 });
+
+// indexing
+// userSchema.index({gender: 1});
+
+// compound indexing
+// User.find({ firstName: "Shraddha", lastName: "Gaur" });
+userSchema.index({ firstName: 1, lastName: 1 });
 
 // schema functions (Note: arrow function are not allowed for this. "this" does not work)
 userSchema.methods.getJWT = async function () {
