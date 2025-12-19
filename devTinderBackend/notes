@@ -186,7 +186,17 @@ require('dotenv').config({
 question: “How do you handle env files in nested Node projects?”
 answer: “I load environment variables using an absolute path derived from __dirname, so the application works regardless of how or where the project is opened.”
 
+22) How to attach debugger with nodemon
+in VSCode, ctrl+ shift+ P,
+then type "Debug:Toggle auto Attach" : Enable it
+Then run normally "npm run dev"
+and run debugger normally
 
+23) Relative and Absolute path
+relative : jaha ho, waha se path
+absolute : system ke root se (windows/ linux ke root se)
+
+24) Ctrl + Shift + F =>  searching a keyword across the entire VS Code workspace.
 
 
 
