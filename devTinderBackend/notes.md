@@ -218,3 +218,6 @@ git branch -d branch_name
  1) const userId = req.params?.userId;
  when saving, it becomes,
  const userId = req.params ? .userId;
+
+ 2) sometimes, error because of different url route 
+ while u are hitting different
