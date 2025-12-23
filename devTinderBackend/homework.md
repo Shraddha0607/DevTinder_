@@ -117,3 +117,10 @@
 - understand when to read from "mongodb documentation"  and when "mongoose documentation"
 - Logical queries, comparison query
 - ALWAYS THINK ABOUT CORNER CASES
+
+-  Write code with proper validation for POSt '/request/review/:status/:requestId',
+- Thought process - POST vs GET 
+validate, data, sanitize data, attacks should not aalow random data
+- Read about ref and populate https://mongoosejs.com/docs/populate.html
+- Create API /user/requests/received
+- Create GET /user/connection

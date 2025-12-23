@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const connectionRequestSchema = new mongoose.Schema({
     fromUserId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     toUserId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     status: {
@@ -23,7 +25,10 @@ const connectionRequestSchema = new mongoose.Schema({
 
 // compound indexing
 // connectionRequest.find({ fromUserId: , toUserId: });
-connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
+connectionRequestSchema.index({
+    fromUserId: 1,
+    toUserId: 1
+});
 
 connectionRequestSchema.pre("save", function () {
     const connectionRequest = this;
@@ -34,9 +39,9 @@ connectionRequestSchema.pre("save", function () {
     // next();   // now in latest version, not needed
 });
 
-const ConnectionRequestModel = new mongoose.model(
+const ConnectionRequest = new mongoose.model(
     "ConnectionRequest",
     connectionRequestSchema
 );
 
-module.exports = ConnectionRequestModel;
+module.exports = ConnectionRequest;

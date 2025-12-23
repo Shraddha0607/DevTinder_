@@ -71,4 +71,55 @@ requestRouter.post(
     });
 
 
+requestRouter.post(
+    '/request/review/:status/:requestId',
+    userAuth,
+    async (req, res) => {
+        try {
+            const loggedInUser = req.user;
+            const {
+                status,
+                requestId
+            } = req.params;
+
+            // allowed only - "accepted, rejected"
+            // check whether logged in user or not
+            // check whether existing request present or not
+            // is request in "interested" state
+            // update existing status, as per input "status"
+            // if already "entered status" present, then error with message: already done
+
+            const allowedStatus = ['rejected', 'accepted'];
+            if (!allowedStatus.includes(status)) {
+                return res.status(400).json({
+                    message: "Status is not allowed!"
+                });
+            }
+
+            const connectionRequest = await ConnectionRequest.findOne({
+                _id: requestId,
+                toUserId: loggedInUser._id,
+                status: "interested",
+            });
+
+            if (!connectionRequest) {
+                return res.status(400).json({
+                    message: "Connection request is not found"
+                });
+            }
+
+            connectionRequest.status = status;
+            const data = await connectionRequest.save();
+
+            res.status(200).json({
+                message: "Connection Request change to " + status,
+                data
+            })
+        } catch (err) {
+            res.status(400).json({
+                message: "Error: " + err.message
+            })
+        }
+    });
+
 module.exports = requestRouter;
