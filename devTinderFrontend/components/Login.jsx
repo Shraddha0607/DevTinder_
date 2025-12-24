@@ -1,0 +1,71 @@
+import { useState } from "react";
+import axios from "axios";
+import { addUser } from "../src/utils/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../src/utils/constant";
+
+const Login = () => {
+  const [emailId, setEmailId] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("Admin@123");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/login`,
+        {
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.data));
+      return navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="flex justify-center my-10">
+      <div className="card bg-base-300 w-96 shadow-sm">
+        <div className="card-body">
+          <h2 className="card-title flex justify-center bold">Login</h2>
+          <div>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Email ID</legend>
+              <input
+                type="text"
+                className="input"
+                placeholder=""
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
+                // default="admin@gmail.com"
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Password</legend>
+              <input
+                type="password"
+                className="input"
+                placeholder=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                // default="Admin@123"
+              />
+            </fieldset>
+          </div>
+          <div className="card-actions justify-center py-3">
+            <button className="btn btn-primary" onClick={handleLogin}>
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
