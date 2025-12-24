@@ -198,6 +198,10 @@ absolute : system ke root se (windows/ linux ke root se)
 
 24) Ctrl + Shift + F =>  searching a keyword across the entire VS Code workspace.
 
+25) CORS (how to add)
+install in backend
+follow documentation
+require it, and use it
 
 
 
