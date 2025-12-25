@@ -27,7 +27,12 @@
 - You should not be able to access other routes without login
 - If token is not present, redirect user to login page
 - Logout feature => remove token, remove user
+- Get the feed and add feed in store
 - build the UserCard on feed
+- Create edit profile page
+- Show side by side (User card to get preview)
+- EXTRA: add code to show errors proper, for gender use dropdown
+- use Toast to show notification => also clear that using function "timeout()"
 
 
 
