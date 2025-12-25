@@ -4,8 +4,8 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { BASE_URL } from "../src/utils/constant";
-import { addUser } from "../src/utils/userSlice";
+import { BASE_URL } from "../utils/constant";
+import { addUser } from "../utils/userSlice";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Body = () => {
   };
 
   useEffect(() => {
-      fetchUser();
+    fetchUser();
   }, []);
 
   return (

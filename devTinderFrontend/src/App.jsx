@@ -1,8 +1,8 @@
-import Body from "../components/Body";
-import Login from "../components/Login";
+import Body from "./components/Body";
+import Login from "./components/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Profile from "../components/Profile";
-import Feed from "../components/Feed";
+import Profile from "./components/Profile";
+import Feed from "./components/Feed";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 
