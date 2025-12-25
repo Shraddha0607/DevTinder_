@@ -114,7 +114,7 @@ requestRouter.post(
             res.status(200).json({
                 message: "Connection Request change to " + status,
                 data
-            })
+            });
         } catch (err) {
             res.status(400).json({
                 message: "Error: " + err.message
