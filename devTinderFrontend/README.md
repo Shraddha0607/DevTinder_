@@ -15,7 +15,7 @@
 - Create a Login page
 - Install axios
 - CORS - install cors in backend => add middleware to with configuration: origin, credentials
-- Whenever making API call, so pass axios => { withCredential: true }
+- Whenever making API call, so pass axios => { withCredentials: true }
 - Install Redux toolkit - https://redux-toolkit.js.org/tutorials/quick-start
 - install react-redux + @reduxjs/toolkit 
 => configureStore => Provider => createSlice => add reducer to store
@@ -27,6 +27,7 @@
 - You should not be able to access other routes without login
 - If token is not present, redirect user to login page
 - Logout feature => remove token, remove user
+- build the UserCard on feed
 
 
 
