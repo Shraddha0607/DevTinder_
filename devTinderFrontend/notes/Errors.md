@@ -1,5 +1,10 @@
 1) Always make sure useState() must initialize in start. Whether wiht empty string.
-2)
+
+2) withCredential vs  withCredentials
+Your API returns 200 because the request itself succeeds,
+but the browser never sends the cookie, so the backend doesn’t know which token to delete.
+
+withCredential ❌ vs withCredentials ✅ affects cookie handling, not the HTTP request success.
 
 
 
