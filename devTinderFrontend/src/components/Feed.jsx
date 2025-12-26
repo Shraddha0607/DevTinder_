@@ -25,7 +25,7 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  if (!feed && feed.length === 0) {
+  if (!feed || feed.length === 0) {
     return <h1 className="flex justify-center my-10">No new users found!</h1>;
   }
 

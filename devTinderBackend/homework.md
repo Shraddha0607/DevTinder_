@@ -140,3 +140,10 @@ NOTES:
 /feed?page=4&limit=10 => 30-40 => .skip(30) & .limit(10)
 
 skip = (page-1) * limit;
+
+
+Improvements:
+1) handle error and not save entity, if anything occur in middle during process. Need to rollback.
+2) global error handling
+3) add logging (workflow, db calling, analysis)
+4) 
