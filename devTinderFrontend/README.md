@@ -37,6 +37,11 @@
 
 - New page - See all my connections
 - New page - See all my Connection Requests
+- Feature: Accept/ Reject connection request
+
+- Send/ignore the user card from feed
+- Signup new user
+- Testing - end to end (E2E) 
 
 
 
