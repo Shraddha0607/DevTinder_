@@ -33,6 +33,9 @@
 - Show side by side (User card to get preview)
 - EXTRA: add code to show errors proper, for gender use dropdown
 - use Toast to show notification => also clear that using function "timeout()"
+- ISSUE: in backend not taking (all values) => check API
+
+- See all my connections
 
 
 
