@@ -35,7 +35,8 @@
 - use Toast to show notification => also clear that using function "timeout()"
 - ISSUE: in backend not taking (all values) => check API
 
-- See all my connections
+- New page - See all my connections
+- New page - See all my Connection Requests
 
 
 
