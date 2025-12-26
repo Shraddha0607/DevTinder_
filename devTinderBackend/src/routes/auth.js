@@ -66,6 +66,9 @@ authRouter.post("/login", async (req, res) => {
             const token = await user.getJWT(); // offloaded JWT token by schema method
 
             res.cookie("token", token, {
+                httpOnly: true, // JS cannot access (security)
+                secure: true, // REQUIRED for HTTPS (Vercel)
+                sameSite: "none", // REQUIRED for cross-origin
                 expires: new Date(Date.now() + 8 * 3600000)
             });
             res.status(200).json({
