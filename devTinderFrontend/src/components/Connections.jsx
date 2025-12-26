@@ -23,9 +23,10 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return;
-
-  if (connections.length === 0) return <h1> No Connections found!</h1>;
+  if (!connections || connections.length === 0)
+    return (
+      <h1 className="flex justify-center my-10"> No Connections found!</h1>
+    );
 
   return (
     <div className="text-center my-10">
