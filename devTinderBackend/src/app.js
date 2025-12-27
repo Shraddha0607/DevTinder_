@@ -21,6 +21,7 @@ const app = express();
 const allowedOrigins =
     process.env.NODE_ENV === "production" ? [process.env.FRONTEND_URL] : ["http://localhost:5173"];
 
+console.log(allowedOrigins);
 app.use(cors({
     origin: allowedOrigins,
     credentials: true,
