@@ -21,18 +21,9 @@ const app = express();
 const allowedOrigins =
     process.env.NODE_ENV === "production" ? [process.env.FRONTEND_LIVE] : ["http://localhost:5173"];
 
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // allow server-to-server or Postman
-        if (allowedOrigins.includes(origin)) return callback(null, true);
-        callback(null, false); // <-- do NOT throw an Error, just deny
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 
-app.options("/*", cors());
+// app.options("/*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -42,11 +33,11 @@ const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require('./routes/user');
 
-app.use('/check', (req, res) => {
-    console.log("Allowed Origins:", allowedOrigins);
-    console.log("Env:", process.env);
-    res.send(`You are good ${JSON.stringify(allowedOrigins)} process end ${JSON.stringify(process.env)}`);
-});
+// app.use('/check', (req, res) => {
+//     console.log("Allowed Origins:", allowedOrigins);
+//     console.log("Env:", process.env);
+//     res.send(`You are good ${JSON.stringify(allowedOrigins)} process end ${JSON.stringify(process.env)}`);
+// });
 
 
 app.use('/', authRouter);
