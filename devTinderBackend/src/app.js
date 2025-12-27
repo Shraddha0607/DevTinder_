@@ -37,6 +37,8 @@ const requestRouter = require("./routes/request");
 const userRouter = require('./routes/user');
 
 app.use('/check', (req, res) => {
+    console.log("Allowed Origins:", allowedOrigins);
+    console.log("Env:", process.env);
     res.send(`You are good ${JSON.stringify(allowedOrigins)} process end ${JSON.stringify(process.env)}`);
 });
 
