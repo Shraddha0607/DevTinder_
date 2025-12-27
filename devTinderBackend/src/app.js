@@ -36,10 +36,16 @@ const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require('./routes/user');
 
+app.use('/check', (req, res) => {
+    res.send("You are good ", allowedOrigins);
+});
+
 app.use('/', authRouter);
 app.use('/', profileRouter);
 app.use('/', requestRouter);
 app.use('/', userRouter);
+
+
 
 
 connectDb()
