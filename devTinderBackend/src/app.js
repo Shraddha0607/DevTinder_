@@ -21,13 +21,18 @@ const app = express();
 const allowedOrigins =
     process.env.NODE_ENV === "production" ? [process.env.FRONTEND_LIVE] : ["http://localhost:5173"];
 
-console.log(allowedOrigins);
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) callback(null, true);
+        else callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 
