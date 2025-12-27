@@ -37,7 +37,7 @@ const requestRouter = require("./routes/request");
 const userRouter = require('./routes/user');
 
 app.use('/check', (req, res) => {
-    res.send("You are good ", allowedOrigins);
+    res.send(`You are good  ${allowedOrigins} process end ${process.env}`);
 });
 
 app.use('/', authRouter);
