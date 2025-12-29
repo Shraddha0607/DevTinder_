@@ -4,7 +4,7 @@ const {
     validateSignUpData
 } = require("../utils/validation");
 const User = require("../models/user");
-
+const { sendVerificationEmail} = require("../utils/prepareMailFormat");
 
 const authRouter = express.Router();
 
@@ -33,6 +33,14 @@ authRouter.post("/signup", async (req, res) => {
 
         const savedUser = await user.save();
         const token = await savedUser.getJWT();
+        
+        const sendMailResponse = await sendVerificationEmail(emailId, firstName);
+        if(!sendMailResponse) {
+            return res.status(400).json({
+                message: "Email address is Invalid!"
+            });
+        }
+
         res.cookie("token", token, {
             expires: new Date(Date.now() + 8 * 360000)
         });

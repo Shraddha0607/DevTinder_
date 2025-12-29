@@ -203,6 +203,24 @@ install in backend
 follow documentation
 require it, and use it
 
+26) https://www.youtube.com/watch?v=-oT7reBcc9o  deploy using this on vercel
+Points to remember
+a) put all changing values in env file 
+b) make sure to take care of "trailing slash" in url
+c) if env variables change, then need to do "redeployment"
+
+27) How to add email
+create an email account and allow SMTP services and get env variable from that side.
+ a) set .env variables
+ MAIL_HOST
+MAIL_USER
+MAIL_PASS
+
+b) install nodemailer
+c) create "mailSender" function by using "createTransport" function provided by nodemailer
+d) prepare mail format and pass value to that. 
+
+28) 
 
 
 
