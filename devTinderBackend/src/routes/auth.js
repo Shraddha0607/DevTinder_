@@ -35,11 +35,6 @@ authRouter.post("/signup", async (req, res) => {
         const token = await savedUser.getJWT();
         
         const sendMailResponse = await sendVerificationEmail(emailId, firstName);
-        if(!sendMailResponse) {
-            return res.status(400).json({
-                message: "Email address is Invalid!"
-            });
-        }
 
         res.cookie("token", token, {
             expires: new Date(Date.now() + 8 * 360000)
