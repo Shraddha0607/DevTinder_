@@ -142,6 +142,29 @@ NOTES:
 skip = (page-1) * limit;
 
 
+____________________________________________________________
+
+
+Season 3
+
+# Scheduling cron jobs in NodeJS
+    - Installing node-cron
+    - Learning about cron expressions syntax - crontab.guru
+    - Schedule a job
+    - date-fns
+    - Find all the unique email Id who have got connection request in previous day
+    - Send Email
+    - Explore queue mechanism to send bulk emails (bee-queue, bull npm packages)
+    - Amazon SES Bulk Emails
+    - Make sendEmail function dynamics (template for email)
+
+
+
+
+
+
+
+
 Improvements:
 1) handle error and not save entity, if anything occur in middle during process. Need to rollback.
 2) global error handling

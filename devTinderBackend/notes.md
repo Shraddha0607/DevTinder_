@@ -220,8 +220,12 @@ b) install nodemailer
 c) create "mailSender" function by using "createTransport" function provided by nodemailer
 d) prepare mail format and pass value to that. 
 
-28) 
+28) "cron" vs "node-cron"
+cron is an OS-level scheduler that runs independently of applications, while node-cron is a Node.js library that schedules tasks inside a running Node app. cron is more reliable for critical tasks, whereas node-cron is easier for app-level scheduling.
 
+
+29) Cron
+https://crontab.guru/ => for checking 
 
 
 
@@ -231,6 +235,7 @@ GIT :
 
 2) to delete a branch(safely)
 git branch -d branch_name
+
 
 
 

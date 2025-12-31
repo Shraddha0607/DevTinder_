@@ -15,6 +15,8 @@ const {
 const {
     validateSignUpData
 } = require("./utils/validation");
+const cron = require("./utils/cronJob");
+
 const cors = require("cors");
 const app = express();
 
